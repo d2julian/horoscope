@@ -1,7 +1,7 @@
 import scrapy
+import logging
 from .constants import *
 from datetime import datetime
-import logging
 class DailySpider(scrapy.Spider):
     name = "daily_spider"
     def start_requests(self):
@@ -42,9 +42,8 @@ class DailySpider(scrapy.Spider):
                }              
                lucky_elements.append(lucky_element)   
             
-            
         yield {
-            'date': datetime.now(),
+            'timestamp': datetime.now().isoformat(),
             'url': url,            
             'zodiac': zodiac,
             'horoscope': daily_horoscope,

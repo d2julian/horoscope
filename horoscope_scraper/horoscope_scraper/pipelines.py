@@ -1,25 +1,20 @@
-from itemadapter import ItemAdapter
-from pymongo.mongo_client import MongoClient
-from pymongo.server_api import ServerApi
-from dotenv import load_dotenv
+import firebase_admin
 import os
 import logging
+from firebase_admin import credentials
+from firebase_admin import db
+from dotenv import load_dotenv
+from scrapy.exceptions import CloseSpider
 
 class HoroscopeScraperPipeline:
-    def process_item(self, item, spider):
-        self.collection.insert_one(dict(item))
-        return item        
-
-    def open_spider(self, spider):
-        load_dotenv()        
-        uri = os.getenv('MONGODB_URI')
-        self.client = MongoClient(uri, server_api=ServerApi('1'))
-        self.db = self.client[os.getenv('DB_NAME')] 
-        self.collection = self.db[os.getenv('COLLECTION_NAME')] 
-        try:
-            self.client.admin.command('ping')
+    def __init__(self):
+        load_dotenv()             
+        try:           
+            cred = credentials.Certificate(os.getenv('FIREBASE_CERTIFICATE'))
+            firebase_admin.initialize_app(cred, {'databaseURL': os.getenv('FIREBASE_URL')})
+            self.ref = db.reference(os.getenv('COLLECTION_NAME')) 
         except Exception as e:
-             logging.error(f'Mongo error: {e}')
-             
-    def close_spider(self, spider):  
-        self.client.close()        
+            raise CloseSpider(f"Failed to initialize Firebase: {e}")          
+    def process_item(self, item, spider):
+        self.ref.push(item)
+        return item  
