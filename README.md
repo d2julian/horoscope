@@ -1,0 +1,1 @@
+Scraper to web scraping daily horoscope info
