@@ -1,1 +1,1 @@
-Scraper to web scraping daily horoscope info
+Horoscope App.
