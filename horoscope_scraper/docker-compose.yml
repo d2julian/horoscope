@@ -1,0 +1,11 @@
+version: '3'
+services:
+  scraper:
+    build: .
+    command: scrapy crawl daily_spider
+    volumes:
+      - .:/app
+    environment:
+      - MONGODB_URI=MONGODB_URI
+      - DB_NAME=DB_NAME
+      - COLLECTION_NAME=COLLECTION_NAME
