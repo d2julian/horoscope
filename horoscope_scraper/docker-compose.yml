@@ -1,0 +1,11 @@
+version: "3"
+services:
+  scraper:
+    build: .
+    command: scrapy crawl daily_spider
+    volumes:
+      - .:/app
+    environment:
+      - FIREBASE_CERTIFICATE=FIREBASE_CERTIFICATE
+      - FIREBASE_URL=FIREBASE_URL
+      - COLLECTION_NAME=COLLECTION_NAME
