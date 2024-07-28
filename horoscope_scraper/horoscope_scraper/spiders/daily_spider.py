@@ -4,6 +4,11 @@ from .constants import *
 from datetime import datetime
 class DailySpider(scrapy.Spider):
     name = "daily_spider"
+    custom_settings = {
+        'ITEM_PIPELINES': {
+            'horoscope_scraper.pipelines.HoroscopeDailyScraperPipeline': 1,
+        }
+    }
     def start_requests(self):
         base_url = BASE_PATH
         for zodiac in ZODIACS_LIST:

@@ -91,8 +91,5 @@ ROBOTSTXT_OBEY = True
 REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
-ITEM_PIPELINES = {
-    'horoscope_scraper.pipelines.HoroscopeScraperPipeline': 1,
-}
 #LOG_LEVEL = 'DEBUG'  # Cambia a 'DEBUG' si quieres ver más detalles
 #LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
